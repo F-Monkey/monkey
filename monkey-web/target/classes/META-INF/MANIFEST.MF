@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: monkey-springboot-doc-starter
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: root
+Implementation-Vendor-Id: indi.monkey
+Build-Jdk: 1.8.0_241
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/monkey-parent/monkey-springboot-doc-starter
+Created-By: Maven Integration for Eclipse
+
