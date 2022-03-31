@@ -17,7 +17,7 @@
 		<java.version>1.8</java.version>
 		<!-- dependency version -->
 		<lombok.version>1.16.18</lombok.version>
-		<spring-boot.version>2.1.3.RELEASE</spring-boot.version>
+		<spring-boot.version>2.5.12</spring-boot.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
