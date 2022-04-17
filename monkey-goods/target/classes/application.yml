@@ -1,0 +1,16 @@
+system:
+  codeTypes:
+    - goodsType
+    - currency
+    - unit
+  resource:
+    host: 192.168.126.158
+    img-port: 8000
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${system.resource.host}:27017/monkey
+
+server:
+  port: 8082

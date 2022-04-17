@@ -1,0 +1,16 @@
+resource:
+  host: 192.168.126.158
+  img-port: 8080
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${resource.host}:27017/monkey
+  redis:
+    host: ${resource.host}
+    port: 6379
+
+monkey:
+  wechat:
+    app-id: wx7552e679690359f5
+    secret: 79d6275e6a44de21a4bf6c7d9c8dd2d9
