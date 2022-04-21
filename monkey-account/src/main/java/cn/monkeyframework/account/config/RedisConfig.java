@@ -15,7 +15,7 @@ public class RedisConfig {
 
     @Bean
     ReactiveRedisTemplate<String, Long> longReactiveRedisTemplate(ReactiveRedisConnectionFactory connectionFactory) {
-        RedisSerializationContext.RedisSerializationContextBuilder<String, Long> serializationContext = RedisSerializationContext.<String, Long>newSerializationContext();
+        RedisSerializationContext.RedisSerializationContextBuilder<String, Long> serializationContext = RedisSerializationContext.newSerializationContext();
         serializationContext.key(StringRedisSerializer.UTF_8);
         serializationContext.value(new GenericToStringSerializer<>(Long.class));
         serializationContext.hashKey(StringRedisSerializer.UTF_8);

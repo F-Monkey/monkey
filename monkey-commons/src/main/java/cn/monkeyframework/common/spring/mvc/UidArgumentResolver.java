@@ -24,7 +24,6 @@ public class UidArgumentResolver implements HandlerMethodArgumentResolver {
         Uid uid = parameter.getParameterAnnotation(Uid.class);
         String value = Objects.requireNonNull(uid).value();
         String header = webRequest.getHeader(value);
-        return uid.required()? header: Objects.requireNonNull(header);
+        return uid.required() ? Objects.requireNonNull(header) : header;
     }
-
 }

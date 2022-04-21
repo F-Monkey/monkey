@@ -77,17 +77,17 @@ public class GoodsServiceTest {
         String[] imgSrc = goods.getImgSrc();
         if ("米".equals(goods.getName())) {
             for (int i = 0; i < imgSrc.length; i++) {
-                imgSrc[i] = "http://cn-hk-1.msrx.online:8999/image/rice_1.jpg";
+                imgSrc[i] = "http://jp-1.msrx.online:8999/image/rice_1.jpg";
             }
         }
         if ("小雨1".equals(goods.getName())) {
             for (int i = 0; i < imgSrc.length; i++) {
-                imgSrc[i] = "http://cn-hk-1.msrx.online:8999/image/fish_1.jpg";
+                imgSrc[i] = "http://jp-1.msrx.online:8999/image/fish_1.jpg";
             }
         }
         if ("小鱼2".equals(goods.getName())) {
             for (int i = 0; i < imgSrc.length; i++) {
-                imgSrc[i] = "http://cn-hk-1.msrx.online:8999/image/fish_2.jpg";
+                imgSrc[i] = "http://jp-1.msrx.online:8999/image/fish_2.jpg";
             }
         }
         goods.setImgSrc(imgSrc);

@@ -22,7 +22,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping({"/{id:O_*}", ""})
+    @GetMapping({"/{id}", ""})
     Result<?> get(@PathVariable(value = "id", required = false) String id,
                   @RequestParam(value = "query_key", required = false) String queryKey,
                   @RequestParam(value = "state", required = false) Integer state,
@@ -31,7 +31,7 @@ public class OrderController {
         if (!Strings.isNullOrEmpty(id)) {
             return this.orderService.select(id);
         }
-        return this.orderService.select(OrderQueryRequest.of(uid, queryKey,state), pageable);
+        return this.orderService.select(OrderQueryRequest.of(uid, queryKey, state), pageable);
     }
 
 
@@ -55,7 +55,7 @@ public class OrderController {
 
     @GetMapping(value = "/detail", params = {"action=distinctGoodsName"})
     Result<List<String>> getDistinctGoodsName(@Uid String uid,
-                                              @RequestParam("goodsName") String goodsName){
-        return this.orderService.selectDistinctGoodsName(uid,goodsName);
+                                              @RequestParam("goodsName") String goodsName) {
+        return this.orderService.selectDistinctGoodsName(uid, goodsName);
     }
 }
