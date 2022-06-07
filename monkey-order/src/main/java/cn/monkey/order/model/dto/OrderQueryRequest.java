@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 @Getter
 public class OrderQueryRequest implements Serializable {
+    private OrderQueryRequest(){}
     private String uid;
     private String queryKey;
     private Integer state;

@@ -1,16 +1,18 @@
 package cn.monkeyframework.common.data.pojo;
 
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 @Data
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable {
+public abstract class BaseEntity<ID extends Serializable> implements Serializable {
+    @Transient
+    protected ID id;
+    protected String creatorId;
+    protected String updaterId;
     protected Long createTs;
     protected Long updateTs;
 }

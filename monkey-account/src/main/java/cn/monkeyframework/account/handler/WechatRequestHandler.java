@@ -1,4 +1,4 @@
-package cn.monkeyframework.account.handler.http;
+package cn.monkeyframework.account.handler;
 
 import reactor.core.publisher.Mono;
 

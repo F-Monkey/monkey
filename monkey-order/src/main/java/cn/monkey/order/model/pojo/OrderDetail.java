@@ -9,9 +9,11 @@ import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Table(name = "order_detail")
+@Table(name = OrderDetail.TABLE_NAME)
 @Entity
-public class OrderDetail extends BaseEntity {
+public class OrderDetail extends BaseEntity<String> {
+    public static final String TABLE_NAME = "order_detail";
+
     @Id
     protected String id;
     private String orderId;
@@ -22,6 +24,6 @@ public class OrderDetail extends BaseEntity {
     private String goodsDesc;
     private Double quantity;
     private Double price;
-    private KeyValuePair<String,String> currency;
+    private KeyValuePair<String, String> currency;
     private String unit;
 }

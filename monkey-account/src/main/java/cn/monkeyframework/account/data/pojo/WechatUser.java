@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class WechatUser extends BaseEntity {
+public class WechatUser extends BaseEntity<String> {
     private String id;
     private String openId;
     private String sessionId;

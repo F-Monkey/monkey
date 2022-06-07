@@ -8,12 +8,12 @@ import java.time.temporal.ChronoUnit;
 
 public class RedisUserOrderLock implements UserOrderLock {
 
-    private final RedisTemplate<String,String> redisTemplate;
+    private final RedisTemplate<String, String> redisTemplate;
 
     private final long lockTime;
 
-    public RedisUserOrderLock(RedisTemplate<String,String> redisTemplate,
-                              UserOrderLockProperties userOrderLockProperties){
+    public RedisUserOrderLock(RedisTemplate<String, String> redisTemplate,
+                              UserOrderLockProperties userOrderLockProperties) {
         this.redisTemplate = redisTemplate;
         this.lockTime = userOrderLockProperties.getExpireMs();
     }
@@ -27,7 +27,7 @@ public class RedisUserOrderLock implements UserOrderLock {
     @Override
     public int unlock(String orderId, String uid) {
         String s = this.redisTemplate.opsForValue().get(orderId);
-        return s == null? UserOrderLock.ORDER_NOT_EXISTS : uid.equals(s)? UserOrderLock.SUCCESS : UserOrderLock.BAD_UID;
+        return s == null ? UserOrderLock.ORDER_NOT_EXISTS : uid.equals(s) ? UserOrderLock.SUCCESS : UserOrderLock.BAD_UID;
     }
 
 }

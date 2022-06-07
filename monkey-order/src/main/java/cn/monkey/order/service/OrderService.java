@@ -117,7 +117,7 @@ public class OrderService implements IOrderService {
         }
         List<Order> content = page.getContent();
         List<String> collect = content.stream().map(Order::getId).collect(Collectors.toList());
-        List<OrderDetail> orderDetailList = this.orderDetailRepository.findAllByOrderId(collect);
+        List<OrderDetail> orderDetailList = this.orderDetailRepository. findAllByOrderId(collect);
         Map<String, List<OrderDetail>> orderDetailMap = orderDetailList.stream().collect(Collectors.groupingBy(OrderDetail::getOrderId));
         Page<OrderVo> orderVoPage = PageUtil.copy(page, (order -> {
             OrderVo copy = OrderUtil.copy(order);

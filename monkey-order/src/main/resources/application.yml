@@ -1,5 +1,5 @@
 resource:
-  host: 192.168.126.158
+  host: 192.168.126.161
 
 spring:
   datasource:

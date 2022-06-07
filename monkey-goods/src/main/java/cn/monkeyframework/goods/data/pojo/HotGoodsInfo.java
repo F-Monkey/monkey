@@ -7,8 +7,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class HotGoodsInfo extends BaseEntity {
-    private String id;
+public class HotGoodsInfo extends BaseEntity<String> {
     private String goodsId;
     private Integer status = ObjectStatus.VALID;
 }

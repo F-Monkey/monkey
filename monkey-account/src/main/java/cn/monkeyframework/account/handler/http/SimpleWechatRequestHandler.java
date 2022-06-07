@@ -2,13 +2,17 @@ package cn.monkeyframework.account.handler.http;
 
 import cn.monkeyframework.account.config.WechatProperties;
 import cn.monkeyframework.account.data.vo.WeChatSessionResp;
+import cn.monkeyframework.account.handler.WechatRequestHandler;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 public class SimpleWechatRequestHandler implements WechatRequestHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(SimpleWechatRequestHandler.class);
 
     private static final String REQUEST_TEMPLATE = "https://api.weixin.qq.com/sns/jscode2session";
 
@@ -36,13 +40,7 @@ public class SimpleWechatRequestHandler implements WechatRequestHandler {
                         .header("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                         .retrieve()
                         .bodyToMono(String.class))
-                .flatMap(s -> {
-                    try {
-                        return Mono.just(this.gson.fromJson(s, WeChatSessionResp.class));
-                    } catch (Exception e) {
-                        return Mono.error(e);
-                    }
-                })
+                .flatMap(s -> Mono.just(this.gson.fromJson(s, WeChatSessionResp.class)))
                 .flatMap(weChatSessionResp -> {
                     Integer errCode = weChatSessionResp.getErrCode();
                     if (errCode == null || errCode == 0) {
@@ -50,6 +48,6 @@ public class SimpleWechatRequestHandler implements WechatRequestHandler {
                     } else {
                         return Mono.error(new IllegalArgumentException("bad request"));
                     }
-                });
+                }).doOnError(e -> log.error("can not find openId by code: {}, error info:\n", code, e));
     }
 }

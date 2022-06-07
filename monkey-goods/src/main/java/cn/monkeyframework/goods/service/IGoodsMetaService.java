@@ -6,6 +6,6 @@ import org.springframework.lang.Nullable;
 
 import java.util.List;
 
-public interface IGoodsMetaService {
+public interface  IGoodsMetaService {
     Result<List<GoodsMetaVo>> get(@Nullable String type);
 }

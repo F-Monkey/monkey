@@ -6,8 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class SystemCode extends BaseEntity {
-    private String id;
+public class SystemCode extends BaseEntity<String> {
     private String systemId;
     private String type;
     private String code;

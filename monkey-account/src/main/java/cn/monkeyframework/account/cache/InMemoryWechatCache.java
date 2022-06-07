@@ -1,6 +1,6 @@
 package cn.monkeyframework.account.cache;
 
-import cn.monkeyframework.account.handler.http.WechatRequestHandler;
+import cn.monkeyframework.account.handler.WechatRequestHandler;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;

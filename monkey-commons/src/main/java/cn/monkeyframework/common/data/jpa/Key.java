@@ -15,6 +15,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface Key {
 
     String key();
+
     String prefix();
+
     int length() default 10;
 }

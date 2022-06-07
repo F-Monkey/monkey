@@ -39,6 +39,10 @@ public class Result<T> implements Serializable {
         return ok(null);
     }
 
+    public static <T> Result<T> fail(int code) {
+        return of(code, null, null, null);
+    }
+
     public static <T> Result<T> fail(int code, String msg) {
         return of(code, msg, null, null);
     }

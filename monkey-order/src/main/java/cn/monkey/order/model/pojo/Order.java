@@ -10,9 +10,11 @@ import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Table(name = "`order`")
+@Table(name = Order.TABLE_NAME)
 @Entity
-public class Order extends BaseEntity {
+public class Order extends BaseEntity<String> {
+    public static final String TABLE_NAME = "`order`";
+
     @Id
     @Key(key = "order_id", prefix = "O_")
     protected String id;

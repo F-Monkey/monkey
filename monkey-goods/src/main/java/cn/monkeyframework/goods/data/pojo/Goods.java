@@ -8,8 +8,7 @@ import javax.persistence.Column;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class Goods extends BaseEntity {
-    private String id;
+public class Goods extends BaseEntity<String> {
     private String name;
     private String type;
     private String[] imgSrc;
