@@ -4,7 +4,7 @@ system:
     - currency
     - unit
   resource:
-    host: 192.168.126.158
+    host: 192.168.126.163
     img-port: 8000
 
 spring:

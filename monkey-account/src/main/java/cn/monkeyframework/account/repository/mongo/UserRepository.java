@@ -1,6 +1,6 @@
 package cn.monkeyframework.account.repository.mongo;
 
-import cn.monkeyframework.account.data.pojo.User;
+import cn.monkeyframework.commons.data.pojo.User;
 import com.google.common.base.Strings;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;

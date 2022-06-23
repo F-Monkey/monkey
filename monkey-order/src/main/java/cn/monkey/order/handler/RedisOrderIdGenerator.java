@@ -23,6 +23,8 @@ public class RedisOrderIdGenerator extends OrderIdGeneratorSupport {
     @Override
     protected String genSuffix() {
         Long increment = this.redisTemplate.opsForValue().increment(this.orderIdKey);
+        // 00000001  // 0_1
+        //
         return Strings.padStart(String.valueOf(increment == null? 0L: increment),this.length,'0');
     }
 

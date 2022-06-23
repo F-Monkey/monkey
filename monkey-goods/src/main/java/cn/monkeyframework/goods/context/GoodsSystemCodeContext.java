@@ -1,7 +1,7 @@
 package cn.monkeyframework.goods.context;
 
+import cn.monkeyframework.commons.data.pojo.SystemCode;
 import cn.monkeyframework.goods.config.SystemConfigProperties;
-import cn.monkeyframework.goods.data.pojo.SystemCode;
 import cn.monkeyframework.goods.repository.SystemCodeRepository;
 import cn.monkeyframework.system.context.SystemCodeContext;
 import com.google.common.collect.ImmutableMap;

@@ -2,7 +2,8 @@ package cn.monkey.order.service;
 
 import cn.monkey.order.handler.OrderIdGenerator;
 import cn.monkey.order.handler.UserOrderLock;
-import cn.monkeyframework.common.data.vo.Result;
+import cn.monkeyframework.commons.data.vo.Result;
+import cn.monkeyframework.commons.data.vo.Results;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class OrderSupportService implements IOrderSupportService {
     private final UserOrderLock userOrderLock;
 
     public OrderSupportService(OrderIdGenerator orderIdGenerator,
-                               UserOrderLock userOrderLock){
+                               UserOrderLock userOrderLock) {
         this.orderIdGenerator = orderIdGenerator;
         this.userOrderLock = userOrderLock;
     }
@@ -26,9 +27,9 @@ public class OrderSupportService implements IOrderSupportService {
     public Result<String> newOrderId(String uid) {
         String s = this.orderIdGenerator.newId();
         boolean b = this.userOrderLock.tryLock(s, uid);
-        if(!b){
-            log.error("can not lock orderId: {} for uid: {}",s, uid);
+        if (!b) {
+            log.error("can not lock orderId: {} for uid: {}", s, uid);
         }
-        return b? Result.ok(s): Result.fail("create order fail");
+        return b ? Results.ok(s) : Results.fail("create order fail");
     }
 }

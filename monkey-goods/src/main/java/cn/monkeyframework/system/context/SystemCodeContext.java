@@ -1,6 +1,6 @@
 package cn.monkeyframework.system.context;
 
-import cn.monkeyframework.goods.data.pojo.SystemCode;
+import cn.monkeyframework.commons.data.pojo.SystemCode;
 
 import java.util.Map;
 

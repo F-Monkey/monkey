@@ -1,8 +1,8 @@
 package cn.monkeyframwork.reactor.test;
 
 import cn.monkeyframework.account.AccountApplication;
-import cn.monkeyframework.account.data.pojo.User;
-import cn.monkeyframework.account.data.pojo.WechatUser;
+import cn.monkeyframework.commons.data.pojo.User;
+import cn.monkeyframework.commons.data.pojo.WechatUser;
 import cn.monkeyframework.account.repository.mongo.UserRepository;
 import cn.monkeyframework.account.repository.mongo.WechatUserRepository;
 import org.junit.jupiter.api.Test;

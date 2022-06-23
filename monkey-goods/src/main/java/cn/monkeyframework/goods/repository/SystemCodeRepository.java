@@ -1,6 +1,6 @@
 package cn.monkeyframework.goods.repository;
 
-import cn.monkeyframework.goods.data.pojo.SystemCode;
+import cn.monkeyframework.commons.data.pojo.SystemCode;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.mongodb.repository.MongoRepository;

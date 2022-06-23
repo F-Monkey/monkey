@@ -1,10 +1,11 @@
 package cn.monkeyframework.account.controller;
 
-import cn.monkeyframework.common.data.vo.Result;
-import cn.monkeyframework.account.data.dto.AddressDto;
-import cn.monkeyframework.account.data.vo.AddressVo;
+import cn.monkeyframework.commons.data.vo.Result;
+import cn.monkeyframework.commons.data.dto.AddressDto;
+import cn.monkeyframework.commons.data.vo.AddressVo;
 import cn.monkeyframework.account.service.UserAddressService;
-import cn.monkeyframework.common.spring.mvc.Uid;
+import cn.monkeyframework.commons.data.vo.Results;
+import cn.monkeyframework.commons.spring.mvc.Uid;
 import com.google.common.base.Strings;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -31,7 +32,7 @@ public class SysUserAddressController {
         if (!Strings.isNullOrEmpty(uid)) {
             return this.userAddressService.select(uid, pageable);
         }
-        return Mono.just(Result.fail("empty arguments"));
+        return Mono.just(Results.fail("empty arguments"));
     }
 
     @PostMapping

@@ -1,16 +1,16 @@
 package cn.monkeyframework.goods.service;
 
-import cn.monkeyframework.common.data.vo.Result;
-import cn.monkeyframework.common.util.PageUtil;
-import cn.monkeyframework.goods.data.GoodsQueryRequestUtil;
-import cn.monkeyframework.goods.data.GoodsUtil;
-import cn.monkeyframework.goods.data.SystemCodeUtl;
-import cn.monkeyframework.goods.data.dto.GoodsDto;
-import cn.monkeyframework.goods.data.dto.GoodsQueryRequest;
-import cn.monkeyframework.goods.data.pojo.Goods;
-import cn.monkeyframework.goods.data.pojo.HotGoodsInfo;
-import cn.monkeyframework.goods.data.pojo.SystemCode;
-import cn.monkeyframework.goods.data.vo.GoodsVo;
+import cn.monkeyframework.commons.data.GoodsUtil;
+import cn.monkeyframework.commons.data.SystemCodeUtl;
+import cn.monkeyframework.commons.data.dto.GoodsDto;
+import cn.monkeyframework.commons.data.dto.GoodsQueryRequest;
+import cn.monkeyframework.commons.data.pojo.Goods;
+import cn.monkeyframework.commons.data.pojo.HotGoodsInfo;
+import cn.monkeyframework.commons.data.pojo.SystemCode;
+import cn.monkeyframework.commons.data.vo.GoodsVo;
+import cn.monkeyframework.commons.data.vo.Result;
+import cn.monkeyframework.commons.data.vo.Results;
+import cn.monkeyframework.commons.util.PageUtil;
 import cn.monkeyframework.goods.repository.GoodsRepository;
 import cn.monkeyframework.goods.repository.HotGoodsRepository;
 import cn.monkeyframework.system.context.SystemCodeContext;
@@ -48,16 +48,16 @@ public class GoodsService implements IGoodsService {
         if (split.length > 1) {
             Iterable<Goods> all = this.goodsRepository.findAllById(Arrays.asList(split));
             List<Goods> copy = PageUtil.copy(all);
-            return Result.ok(copy.stream().map(goods -> this.buildFullGoodsVo(goodsTypeMap,currencyMap,goods)).collect(Collectors.toList()));
+            return Results.ok(copy.stream().map(goods -> this.buildFullGoodsVo(goodsTypeMap, currencyMap, goods)).collect(Collectors.toList()));
         }
         return this.goodsRepository.findById(id)
-                .map(goods -> Result.ok(this.buildFullGoodsVo(goodsTypeMap,currencyMap,goods)))
-                .orElseGet(() -> Result.fail("id:" + id + " is not exits"));
+                .map(goods -> Results.ok(this.buildFullGoodsVo(goodsTypeMap, currencyMap, goods)))
+                .orElseGet(() -> Results.fail("id:" + id + " is not exits"));
     }
 
     protected GoodsVo buildFullGoodsVo(Map<String, SystemCode> goodsTypeMap,
                                        Map<String, SystemCode> currencyMap,
-                                       Goods goods){
+                                       Goods goods) {
         GoodsVo goodsVo = GoodsUtil.copy(goods);
         goodsVo.setCurrency(SystemCodeUtl.copy(currencyMap.get(goods.getCurrency())));
         goodsVo.setType(SystemCodeUtl.copy(goodsTypeMap.get(goods.getType())));
@@ -72,16 +72,16 @@ public class GoodsService implements IGoodsService {
             switch (action) {
                 case GoodsQueryRequest.Action.GET_HOT_GOODS:
                     Page<GoodsVo> hotGoods = this.getHotGoods(pageable);
-                    return Result.ok(hotGoods);
+                    return Results.ok(hotGoods);
                 default:
-                    return Result.ok(Page.empty());
+                    return Results.ok(Page.empty());
             }
         }
         Map<String, SystemCode> goodsTypeMap = this.systemCodeContext.get(IGoodsService.GOODS_TYPE_CODE);
         Map<String, SystemCode> currencyMap = this.systemCodeContext.get(IGoodsService.CURRENCY_CODE);
-        Page<Goods> all = this.goodsRepository.findAll(GoodsQueryRequestUtil.build(queryRequest), pageable);
-        Page<GoodsVo> copy = PageUtil.copy(all, goods -> this.buildFullGoodsVo(goodsTypeMap,currencyMap,goods));
-        return Result.ok(copy);
+        Page<Goods> all = this.goodsRepository.findAllByQueryRequest(queryRequest, pageable);
+        Page<GoodsVo> copy = PageUtil.copy(all, goods -> this.buildFullGoodsVo(goodsTypeMap, currencyMap, goods));
+        return Results.ok(copy);
     }
 
     protected Page<GoodsVo> getHotGoods(Pageable pageable) {
@@ -107,19 +107,19 @@ public class GoodsService implements IGoodsService {
     public Result<GoodsVo> add(GoodsDto goods) {
         Goods copy = GoodsUtil.copy(goods);
         Goods save = this.goodsRepository.save(copy);
-        return Result.ok(GoodsUtil.copy(save));
+        return Results.ok(GoodsUtil.copy(save));
     }
 
     @Override
     public Result<GoodsVo> update(String id, GoodsDto goods) {
         Goods copy = GoodsUtil.copy(id, goods);
         Goods save = this.goodsRepository.save(copy);
-        return Result.ok(GoodsUtil.copy(save));
+        return Results.ok(GoodsUtil.copy(save));
     }
 
     @Override
     public Result<Void> delete(String id) {
         this.goodsRepository.deleteById(id);
-        return Result.ok();
+        return Results.ok();
     }
 }

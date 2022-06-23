@@ -1,8 +1,8 @@
 package cn.monkeyframework.account.controller;
 
-import cn.monkeyframework.common.data.vo.Result;
-import cn.monkeyframework.account.data.dto.UserDto;
-import cn.monkeyframework.account.data.vo.UserVo;
+import cn.monkeyframework.commons.data.vo.Result;
+import cn.monkeyframework.commons.data.dto.UserDto;
+import cn.monkeyframework.commons.data.vo.UserVo;
 import cn.monkeyframework.account.service.IUserService;
 import com.google.common.base.Strings;
 import org.springframework.data.domain.Pageable;
@@ -24,13 +24,14 @@ public class SysUserController {
     @GetMapping({"/{id}", ""})
     Mono<? extends Result<?>> get(@PathVariable(required = false, name = "id") String id,
                                   @RequestParam(required = false, name = "query_key") String queryKey,
+                                  @RequestParam(required = false,name = "username") String username,
                                   @RequestParam(required = false, name = "password") String password,
                                   @PageableDefault Pageable pageable) {
         if (!Strings.isNullOrEmpty(id)) {
             return this.userService.select(id);
         }
-        if (!Strings.isNullOrEmpty(queryKey) && !Strings.isNullOrEmpty(password)) {
-            return this.userService.login(queryKey, password);
+        if (!Strings.isNullOrEmpty(username) && !Strings.isNullOrEmpty(password)) {
+            return this.userService.login(username, password);
         }
         return this.userService.select(queryKey, pageable);
     }

@@ -1,18 +1,16 @@
 package cn.monkey.order.service.test;
 
 import cn.monkey.order.OrderApplication;
-import cn.monkey.order.model.dto.OrderDetailDto;
-import cn.monkey.order.model.dto.OrderDto;
-import cn.monkey.order.model.pojo.OrderDetail;
-import cn.monkey.order.model.vo.OrderVo;
+import cn.monkeyframework.commons.data.dto.OrderDetailDto;
+import cn.monkeyframework.commons.data.dto.OrderDto;
+import cn.monkeyframework.commons.data.vo.OrderVo;
 import cn.monkey.order.service.IOrderService;
-import cn.monkeyframework.common.data.vo.Result;
+import cn.monkeyframework.commons.data.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.lang.annotation.Target;
 import java.util.Collections;
 
 @SpringBootTest(classes = OrderApplication.class)

@@ -1,7 +1,7 @@
 package cn.monkeyframework.goods.service;
 
-import cn.monkeyframework.common.data.vo.Result;
-import cn.monkeyframework.goods.data.vo.GoodsMetaVo;
+import cn.monkeyframework.commons.data.vo.GoodsMetaVo;
+import cn.monkeyframework.commons.data.vo.Result;
 import org.springframework.lang.Nullable;
 
 import java.util.List;

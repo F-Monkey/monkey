@@ -1,19 +1,20 @@
 package cn.monkey.order.service;
 
 import cn.monkey.order.handler.UserOrderLock;
-import cn.monkey.order.model.OrderState;
-import cn.monkey.order.model.OrderUtil;
-import cn.monkey.order.model.dto.OrderDetailDto;
-import cn.monkey.order.model.dto.OrderDto;
-import cn.monkey.order.model.dto.OrderQueryRequest;
-import cn.monkey.order.model.pojo.Order;
-import cn.monkey.order.model.pojo.OrderDetail;
-import cn.monkey.order.model.vo.OrderDetailVo;
-import cn.monkey.order.model.vo.OrderVo;
+import cn.monkeyframework.commons.data.OrderState;
+import cn.monkeyframework.commons.data.OrderUtil;
+import cn.monkeyframework.commons.data.dto.OrderDetailDto;
+import cn.monkeyframework.commons.data.dto.OrderDto;
+import cn.monkeyframework.commons.data.dto.OrderQueryRequest;
+import cn.monkeyframework.commons.data.pojo.Order;
+import cn.monkeyframework.commons.data.pojo.OrderDetail;
+import cn.monkeyframework.commons.data.vo.OrderDetailVo;
+import cn.monkeyframework.commons.data.vo.OrderVo;
 import cn.monkey.order.repository.OrderDetailRepository;
 import cn.monkey.order.repository.OrderRepository;
-import cn.monkeyframework.common.data.vo.Result;
-import cn.monkeyframework.common.util.PageUtil;
+import cn.monkeyframework.commons.data.vo.Result;
+import cn.monkeyframework.commons.data.vo.Results;
+import cn.monkeyframework.commons.util.PageUtil;
 import com.google.common.base.Strings;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,20 +48,20 @@ public class OrderService implements IOrderService {
     public Result<OrderVo> add(OrderDto orderDto) {
         List<OrderDetailDto> orderDetail = orderDto.getOrderDetail();
         if (CollectionUtils.isEmpty(orderDetail)) {
-            return Result.fail("can not find any order detail");
+            return Results.fail("can not find any order detail");
         }
         String orderId = orderDto.getId();
         String uid = orderDto.getUid();
 
-        if(Strings.isNullOrEmpty(orderId)){
-            return Result.fail("order.id is required");
+        if (Strings.isNullOrEmpty(orderId)) {
+            return Results.fail("order.id is required");
         }
         int unlock = this.userOrderLock.unlock(orderId, uid);
-        switch (unlock){
+        switch (unlock) {
             case UserOrderLock.ORDER_NOT_EXISTS:
-                return Result.fail("orderId: "+ orderId +" is not exists");
+                return Results.fail("orderId: " + orderId + " is not exists");
             case UserOrderLock.BAD_UID:
-                return Result.fail("orderId: "+ orderId+" is not belongs to uid: "+ uid);
+                return Results.fail("orderId: " + orderId + " is not belongs to uid: " + uid);
             default:
                 break;
         }
@@ -76,18 +77,18 @@ public class OrderService implements IOrderService {
         List<OrderDetailVo> detailVoList = saveAll.stream().map(OrderUtil::copy).collect(Collectors.toList());
         OrderVo orderVo = OrderUtil.copy(order);
         orderVo.setOrderDetail(detailVoList);
-        return Result.ok(orderVo);
+        return Results.ok(orderVo);
     }
 
-    protected List<OrderDetail> buildOrderDetailList(String orderId, List<OrderDetailDto> orderDetailDtoList){
+    protected List<OrderDetail> buildOrderDetailList(String orderId, List<OrderDetailDto> orderDetailDtoList) {
         int index = 0;
         long l = System.currentTimeMillis();
         List<OrderDetail> orderDetailList = new ArrayList<>(orderDetailDtoList.size());
-        for(OrderDetailDto orderDetailDto: orderDetailDtoList){
+        for (OrderDetailDto orderDetailDto : orderDetailDtoList) {
             OrderDetail copy = OrderUtil.copy(orderId, orderDetailDto);
             copy.setCreateTs(l);
             copy.setUpdateTs(l);
-            copy.setId(orderId +"_"+ Strings.padStart(String.valueOf(index++), 2, '0'));
+            copy.setId(orderId + "_" + Strings.padStart(String.valueOf(index++), 2, '0'));
             orderDetailList.add(copy);
         }
         return orderDetailList;
@@ -98,26 +99,26 @@ public class OrderService implements IOrderService {
     public Result<OrderVo> update(String orderId, OrderDto orderDto) {
         Order copy = OrderUtil.copy(orderId, orderDto);
         Order save = this.orderRepository.saveAndFlush(copy);
-        return Result.ok(OrderUtil.copy(save));
+        return Results.ok(OrderUtil.copy(save));
     }
 
     @Override
     public Result<Page<OrderVo>> select(OrderQueryRequest queryRequest, Pageable pageable) {
         Integer state = queryRequest.getState();
-        if(state != null){
+        if (state != null) {
             try {
                 OrderState.of(state);
-            }catch (IllegalArgumentException e){
-                return Result.fail("invalid state: "+ state);
+            } catch (IllegalArgumentException e) {
+                return Results.fail("invalid state: " + state);
             }
         }
         Page<Order> page = this.orderRepository.findByGoodsName(queryRequest, pageable);
         if (page.isEmpty()) {
-            return Result.ok(Page.empty(pageable));
+            return Results.ok(Page.empty(pageable));
         }
         List<Order> content = page.getContent();
         List<String> collect = content.stream().map(Order::getId).collect(Collectors.toList());
-        List<OrderDetail> orderDetailList = this.orderDetailRepository. findAllByOrderId(collect);
+        List<OrderDetail> orderDetailList = this.orderDetailRepository.findAllByOrderId(collect);
         Map<String, List<OrderDetail>> orderDetailMap = orderDetailList.stream().collect(Collectors.groupingBy(OrderDetail::getOrderId));
         Page<OrderVo> orderVoPage = PageUtil.copy(page, (order -> {
             OrderVo copy = OrderUtil.copy(order);
@@ -129,7 +130,7 @@ public class OrderService implements IOrderService {
             copy.setOrderDetail(detailVoList);
             return copy;
         }));
-        return Result.ok(orderVoPage);
+        return Results.ok(orderVoPage);
     }
 
     @Override
@@ -142,8 +143,8 @@ public class OrderService implements IOrderService {
                 List<OrderDetailVo> collect = orderDetails.stream().map(OrderUtil::copy).collect(Collectors.toList());
                 copy.setOrderDetail(collect);
             }
-            return Result.ok(copy);
-        }).orElse(Result.fail("can not find order by id: " + id));
+            return Results.ok(copy);
+        }).orElse(Results.fail("can not find order by id: " + id));
     }
 
     @Override
@@ -152,12 +153,12 @@ public class OrderService implements IOrderService {
         order.setId(id);
         order.setState(OrderState.CANCELED.getCode());
         this.orderRepository.save(order);
-        return Result.ok();
+        return Results.ok();
     }
 
     @Override
     public Result<List<String>> selectDistinctGoodsName(String uid, String goodsName) {
         List<String> distinctGoodsName = this.orderDetailRepository.findDistinctGoodsName(uid, goodsName);
-        return CollectionUtils.isEmpty(distinctGoodsName)? Result.ok(): Result.ok(distinctGoodsName);
+        return CollectionUtils.isEmpty(distinctGoodsName) ? Results.ok() : Results.ok(distinctGoodsName);
     }
 }

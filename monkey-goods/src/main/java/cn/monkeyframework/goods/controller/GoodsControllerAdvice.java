@@ -1,6 +1,7 @@
 package cn.monkeyframework.goods.controller;
 
-import cn.monkeyframework.common.data.vo.Result;
+import cn.monkeyframework.commons.data.vo.Result;
+import cn.monkeyframework.commons.data.vo.Results;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -13,6 +14,6 @@ public class GoodsControllerAdvice {
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     Result<?> onValidationException(ValidationException e) {
-        return Result.fail(e.getMessage());
+        return Results.fail(e.getMessage());
     }
 }

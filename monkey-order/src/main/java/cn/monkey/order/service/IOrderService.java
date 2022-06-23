@@ -1,9 +1,9 @@
 package cn.monkey.order.service;
 
-import cn.monkey.order.model.dto.OrderDto;
-import cn.monkey.order.model.dto.OrderQueryRequest;
-import cn.monkey.order.model.vo.OrderVo;
-import cn.monkeyframework.common.data.vo.Result;
+import cn.monkeyframework.commons.data.dto.OrderDto;
+import cn.monkeyframework.commons.data.dto.OrderQueryRequest;
+import cn.monkeyframework.commons.data.vo.OrderVo;
+import cn.monkeyframework.commons.data.vo.Result;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

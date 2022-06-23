@@ -1,9 +1,9 @@
 package cn.monkeyframework.goods.controller;
 
-import cn.monkeyframework.common.data.vo.Result;
-import cn.monkeyframework.goods.data.dto.GoodsDto;
-import cn.monkeyframework.goods.data.dto.GoodsQueryRequest;
-import cn.monkeyframework.goods.data.vo.GoodsVo;
+import cn.monkeyframework.commons.data.dto.GoodsDto;
+import cn.monkeyframework.commons.data.dto.GoodsQueryRequest;
+import cn.monkeyframework.commons.data.vo.GoodsVo;
+import cn.monkeyframework.commons.data.vo.Result;
 import cn.monkeyframework.goods.service.IGoodsService;
 import com.google.common.base.Strings;
 import org.springframework.data.domain.Pageable;

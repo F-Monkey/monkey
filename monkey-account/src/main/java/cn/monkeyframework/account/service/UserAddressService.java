@@ -1,12 +1,13 @@
 package cn.monkeyframework.account.service;
 
-import cn.monkeyframework.common.data.vo.Result;
-import cn.monkeyframework.account.data.AddressUtil;
-import cn.monkeyframework.account.data.dto.AddressDto;
-import cn.monkeyframework.account.data.pojo.UserAddress;
-import cn.monkeyframework.account.data.vo.AddressVo;
+import cn.monkeyframework.commons.data.AddressUtil;
+import cn.monkeyframework.commons.data.vo.Result;
+import cn.monkeyframework.commons.data.dto.AddressDto;
+import cn.monkeyframework.commons.data.pojo.UserAddress;
+import cn.monkeyframework.commons.data.vo.AddressVo;
 import cn.monkeyframework.account.repository.mongo.AddressRepository;
 import cn.monkeyframework.account.repository.mongo.UserAddressRepository;
+import cn.monkeyframework.commons.data.vo.Results;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -35,19 +36,19 @@ public class UserAddressService implements IUserAddressService {
     public Mono<Result<Page<AddressVo>>> select(String userId, Pageable pageable) {
         return this.userAddressRepository.findByUid(userId, pageable).flatMap(page -> {
             if (page.isEmpty()) {
-                return Mono.just(Result.ok(Page.empty(page.getPageable())));
+                return Mono.just(Results.ok(Page.empty(page.getPageable())));
             }
             List<String> addressIds = page.stream().map(UserAddress::getAddressId).collect(Collectors.toList());
             return this.addressRepository.findAllById(addressIds)
                     .map(AddressUtil::copy)
                     .collect(Collectors.toList())
-                    .map(addresses -> Result.ok(new PageImpl<>(addresses, pageable, page.getTotalElements())));
+                    .map(addresses -> Results.ok(new PageImpl<>(addresses, pageable, page.getTotalElements())));
         });
     }
 
     @Override
     public Mono<Result<AddressVo>> selectById(String id) {
-        return this.addressRepository.findById(id).map(AddressUtil::copy).map(Result::ok).switchIfEmpty(Mono.just(Result.fail("can not find by id: " + id)));
+        return this.addressRepository.findById(id).map(AddressUtil::copy).map(Results::ok).switchIfEmpty(Mono.just(Results.fail("can not find by id: " + id)));
     }
 
     @Override
@@ -58,7 +59,7 @@ public class UserAddressService implements IUserAddressService {
             userAddress.setAddressId(id);
             userAddress.setUid(addressDto.getUid());
             return this.userAddressRepository.save(userAddress).map(ua -> Tuples.of(ua, address));
-        }).map(t -> AddressUtil.copy(t.getT2())).map(Result::ok);
+        }).map(t -> AddressUtil.copy(t.getT2())).map(Results::ok);
     }
 
     @Override
@@ -67,14 +68,14 @@ public class UserAddressService implements IUserAddressService {
                 .map(address -> AddressUtil.copy(address.getId(), addressDto))
                 .flatMap(this.addressRepository::save)
                 .map(AddressUtil::copy)
-                .map(Result::ok)
-                .switchIfEmpty(Mono.just(Result.fail("can not find addressInfo by id: " + id)));
+                .map(Results::ok)
+                .switchIfEmpty(Mono.just(Results.fail("can not find addressInfo by id: " + id)));
     }
 
     @Override
     public Mono<Result<Void>> del(String ids) {
         List<String> list = Arrays.stream(ids.split(",")).collect(Collectors.toList());
         return this.addressRepository.deleteAllById(list)
-                .map(v -> Result.ok());
+                .map(v -> Results.ok());
     }
 }

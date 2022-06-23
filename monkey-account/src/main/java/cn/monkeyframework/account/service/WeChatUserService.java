@@ -1,21 +1,23 @@
 package cn.monkeyframework.account.service;
 
-import cn.monkeyframework.common.data.ObjectStatus;
-import cn.monkeyframework.common.data.vo.Result;
+import cn.monkeyframework.commons.data.ObjectStatus;
+import cn.monkeyframework.commons.data.UserUtil;
+import cn.monkeyframework.commons.data.pojo.User;
+import cn.monkeyframework.commons.data.vo.Result;
 import cn.monkeyframework.account.cache.WechatCache;
-import cn.monkeyframework.account.data.UserUtil;
-import cn.monkeyframework.account.data.dto.UserDto;
-import cn.monkeyframework.account.data.dto.WechatLoginRequest;
-import cn.monkeyframework.account.data.pojo.User;
-import cn.monkeyframework.account.data.pojo.WechatUser;
-import cn.monkeyframework.account.data.vo.UserVo;
+import cn.monkeyframework.commons.data.dto.UserDto;
+import cn.monkeyframework.commons.data.dto.WechatLoginRequest;
+import cn.monkeyframework.commons.data.pojo.WechatUser;
+import cn.monkeyframework.commons.data.vo.UserVo;
 import cn.monkeyframework.account.handler.AppKeyHandler;
 import cn.monkeyframework.account.repository.mongo.UserRepository;
 import cn.monkeyframework.account.repository.mongo.WechatUserRepository;
+import cn.monkeyframework.commons.data.vo.Results;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
@@ -48,6 +50,7 @@ public class WeChatUserService implements IWeChatUserService {
     }
 
     @Override
+    @Transactional
     public Mono<Result<UserVo>> getUser(WechatLoginRequest wechatLoginRequest) {
         return Mono.just(wechatLoginRequest)
                 .doOnNext(request -> log.info("request info: {}", request))
@@ -81,9 +84,9 @@ public class WeChatUserService implements IWeChatUserService {
                         vo.setAppKey(wechatUser.getAppKey());
                         return vo;
                     }).switchIfEmpty(Mono.error(new IllegalArgumentException("bad wechat user info, can not find user by uid: " + userId)));
-                }).map(Result::ok)
+                }).map(Results::ok)
                 .doOnError(e -> log.error("wechat login error:\n", e))
-                .onErrorResume(e -> Mono.just(Result.fail(e.getMessage())))
+                .onErrorResume(e -> Mono.just(Results.fail(e.getMessage())))
                 .doOnNext(userVoResult -> log.info("user result: {}", userVoResult))
                 .subscribeOn(this.scheduler);
     }

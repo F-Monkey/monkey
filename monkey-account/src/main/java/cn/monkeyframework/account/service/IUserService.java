@@ -1,8 +1,8 @@
 package cn.monkeyframework.account.service;
 
-import cn.monkeyframework.common.data.vo.Result;
-import cn.monkeyframework.account.data.dto.UserDto;
-import cn.monkeyframework.account.data.vo.UserVo;
+import cn.monkeyframework.commons.data.vo.Result;
+import cn.monkeyframework.commons.data.dto.UserDto;
+import cn.monkeyframework.commons.data.vo.UserVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;

@@ -2,8 +2,8 @@ package cn.monkeyframework.account;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import cn.monkeyframework.common.config.EnableCommonConfig;
-import cn.monkeyframework.common.spring.mvc.ReactiveWebMVCConfig;
+import cn.monkeyframework.commons.config.EnableCommonConfig;
+import cn.monkeyframework.commons.spring.mvc.ReactiveWebMVCConfig;
 
 @SpringBootApplication
 @EnableCommonConfig(value = ReactiveWebMVCConfig.class)

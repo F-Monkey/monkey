@@ -1,8 +1,8 @@
 package cn.monkey.order.repository;
 
-import cn.monkey.order.model.pojo.Order;
-import cn.monkey.order.model.pojo.OrderDetail;
-import cn.monkeyframework.common.data.repository.jpa.JpaRepository;
+import cn.monkeyframework.commons.data.pojo.Order;
+import cn.monkeyframework.commons.data.pojo.OrderDetail;
+import cn.monkeyframework.commons.data.repository.jpa.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

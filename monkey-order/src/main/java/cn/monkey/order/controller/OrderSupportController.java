@@ -1,8 +1,8 @@
 package cn.monkey.order.controller;
 
 import cn.monkey.order.service.IOrderSupportService;
-import cn.monkeyframework.common.data.vo.Result;
-import cn.monkeyframework.common.spring.mvc.Uid;
+import cn.monkeyframework.commons.data.vo.Result;
+import cn.monkeyframework.commons.spring.mvc.Uid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,8 +1,8 @@
 package cn.monkeyframework.goods.test;
 
+import cn.monkeyframework.commons.data.pojo.SystemCode;
 import cn.monkeyframework.goods.GoodsApplication;
 import cn.monkeyframework.goods.context.GoodsSystemCodeContext;
-import cn.monkeyframework.goods.data.pojo.SystemCode;
 import cn.monkeyframework.goods.repository.SystemCodeRepository;
 import cn.monkeyframework.goods.service.IGoodsService;
 import lombok.extern.slf4j.Slf4j;

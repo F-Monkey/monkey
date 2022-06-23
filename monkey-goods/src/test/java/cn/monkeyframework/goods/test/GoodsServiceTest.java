@@ -1,12 +1,12 @@
 package cn.monkeyframework.goods.test;
 
-import cn.monkeyframework.common.data.ObjectStatus;
-import cn.monkeyframework.common.data.vo.Result;
+import cn.monkeyframework.commons.data.ObjectStatus;
+import cn.monkeyframework.commons.data.dto.GoodsDto;
+import cn.monkeyframework.commons.data.pojo.Goods;
+import cn.monkeyframework.commons.data.pojo.HotGoodsInfo;
+import cn.monkeyframework.commons.data.vo.GoodsVo;
+import cn.monkeyframework.commons.data.vo.Result;
 import cn.monkeyframework.goods.GoodsApplication;
-import cn.monkeyframework.goods.data.dto.GoodsDto;
-import cn.monkeyframework.goods.data.pojo.Goods;
-import cn.monkeyframework.goods.data.pojo.HotGoodsInfo;
-import cn.monkeyframework.goods.data.vo.GoodsVo;
 import cn.monkeyframework.goods.repository.GoodsRepository;
 import cn.monkeyframework.goods.repository.HotGoodsRepository;
 import cn.monkeyframework.goods.service.IGoodsService;
@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collections;
 import java.util.List;
 
 @SpringBootTest(classes = GoodsApplication.class)

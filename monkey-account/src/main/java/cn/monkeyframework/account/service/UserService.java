@@ -1,14 +1,15 @@
 package cn.monkeyframework.account.service;
 
-import cn.monkeyframework.account.data.pojo.WechatUser;
+import cn.monkeyframework.commons.data.UserUtil;
+import cn.monkeyframework.commons.data.pojo.User;
+import cn.monkeyframework.commons.data.pojo.WechatUser;
 import cn.monkeyframework.account.repository.mongo.WechatUserRepository;
-import cn.monkeyframework.common.data.ObjectStatus;
-import cn.monkeyframework.common.data.vo.Result;
-import cn.monkeyframework.common.util.PageUtil;
-import cn.monkeyframework.account.data.UserUtil;
-import cn.monkeyframework.account.data.dto.UserDto;
-import cn.monkeyframework.account.data.pojo.User;
-import cn.monkeyframework.account.data.vo.UserVo;
+import cn.monkeyframework.commons.data.ObjectStatus;
+import cn.monkeyframework.commons.data.vo.Result;
+import cn.monkeyframework.commons.data.vo.Results;
+import cn.monkeyframework.commons.util.PageUtil;
+import cn.monkeyframework.commons.data.dto.UserDto;
+import cn.monkeyframework.commons.data.vo.UserVo;
 import cn.monkeyframework.account.repository.mongo.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,31 +38,29 @@ public class UserService implements IUserService {
     @Override
     public Mono<Result<UserVo>> select(String uid) {
         return this.userRepository.findById(uid)
-                .map(u -> Result.ok(UserUtil.copy(u)))
-                .defaultIfEmpty(Result.fail("invalid uid: " + uid))
+                .map(u -> Results.ok(UserUtil.copy(u)))
+                .defaultIfEmpty(Results.fail("invalid uid: " + uid))
                 .doOnError(t -> log.error("#find(String) error:\n", t))
-                .onErrorResume(e -> Mono.just(Result.error(e)));
+                .onErrorResume(e -> Mono.just(Results.error(e)));
     }
 
     @Override
     public Mono<Result<UserVo>> login(String queryKey, String password) {
         return this.userRepository.findByQueryKeyAndPassword(queryKey, password)
-                .map(u -> Result.ok(UserUtil.copy(u)))
-                .defaultIfEmpty(Result.fail("invalid queryKey or password"))
-                .doOnError(t -> {
-                    log.error("#find(String,String) error:\n", t);
-                })
-                .onErrorResume(e -> Mono.just(Result.error(e)));
+                .map(u -> Results.ok(UserUtil.copy(u)))
+                .defaultIfEmpty(Results.fail("invalid queryKey or password"))
+                .doOnError(t -> log.error("#find(String,String) error:\n", t))
+                .onErrorResume(e -> Mono.just(Results.error(e)));
     }
 
     @Override
     public Mono<Result<Page<UserVo>>> select(@Nullable String queryKey, Pageable pageable) {
         return this.userRepository.findByQueryKey(queryKey, pageable)
-                .map(p -> Result.ok(PageUtil.copy(p, UserUtil::copy)))
+                .map(p -> Results.ok(PageUtil.copy(p, UserUtil::copy)))
                 .doOnError(t -> {
                     log.error("#find(String,Pageable) error:\n", t);
                 })
-                .onErrorResume(e -> Mono.just(Result.error(e)));
+                .onErrorResume(e -> Mono.just(Results.error(e)));
     }
 
     @Override
@@ -77,13 +76,13 @@ public class UserService implements IUserService {
                     User t2 = t.getT2();
                     UserVo copy = UserUtil.copy(t2);
                     copy.setAppKey(t1.getAppKey());
-                    return Result.ok(copy);
+                    return Results.ok(copy);
                 })
-                .switchIfEmpty(Mono.just(Result.fail("user create fail...")))
+                .switchIfEmpty(Mono.just(Results.fail("user create fail...")))
                 .doOnError(t -> {
                     log.error("#add(UserDto) error:\n", t);
                 })
-                .onErrorResume(e -> Mono.just(Result.error(e)));
+                .onErrorResume(e -> Mono.just(Results.error(e)));
     }
 
     @Override
@@ -100,13 +99,13 @@ public class UserService implements IUserService {
                     User t2 = t.getT2();
                     UserVo copy = UserUtil.copy(t2);
                     copy.setAppKey(t1.getAppKey());
-                    return Result.ok(copy);
+                    return Results.ok(copy);
                 })
-                .switchIfEmpty(Mono.just(Result.fail("user update fail...")))
+                .switchIfEmpty(Mono.just(Results.fail("user update fail...")))
                 .doOnError(t -> {
                     log.error("#add(UserDto) error:\n", t);
                 })
-                .onErrorResume(e -> Mono.just(Result.error(e)));
+                .onErrorResume(e -> Mono.just(Results.error(e)));
     }
 
     @Override
@@ -115,13 +114,13 @@ public class UserService implements IUserService {
                 .map((u) -> {
                     if (u != null) {
                         log.info("delete user: {}", u);
-                        return this.userRepository.deleteById(id);
+                        return this.userRepository.delete(u);
                     }
                     log.debug("can not find user by id: " + id);
                     return Mono.empty();
                 })
-                .map(v -> Result.<Void>ok())
-                .defaultIfEmpty(Result.fail("id: " + id + " is not exists"))
-                .onErrorResume(e -> Mono.just(Result.error(e)));
+                .map(v -> Results.<Void>ok())
+                .defaultIfEmpty(Results.fail("id: " + id + " is not exists"))
+                .onErrorResume(e -> Mono.just(Results.error(e)));
     }
 }

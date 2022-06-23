@@ -1,8 +1,8 @@
 package cn.monkey.order.repository.test;
 
 import cn.monkey.order.OrderApplication;
-import cn.monkey.order.model.dto.OrderQueryRequest;
-import cn.monkey.order.model.pojo.Order;
+import cn.monkeyframework.commons.data.dto.OrderQueryRequest;
+import cn.monkeyframework.commons.data.pojo.Order;
 import cn.monkey.order.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

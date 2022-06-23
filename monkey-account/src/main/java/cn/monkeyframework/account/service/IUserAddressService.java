@@ -1,8 +1,8 @@
 package cn.monkeyframework.account.service;
 
-import cn.monkeyframework.common.data.vo.Result;
-import cn.monkeyframework.account.data.dto.AddressDto;
-import cn.monkeyframework.account.data.vo.AddressVo;
+import cn.monkeyframework.commons.data.vo.Result;
+import cn.monkeyframework.commons.data.dto.AddressDto;
+import cn.monkeyframework.commons.data.vo.AddressVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Mono;

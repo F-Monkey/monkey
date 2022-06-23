@@ -1,7 +1,7 @@
 package cn.monkeyframework.account.handler.http;
 
 import cn.monkeyframework.account.config.WechatProperties;
-import cn.monkeyframework.account.data.vo.WeChatSessionResp;
+import cn.monkeyframework.commons.data.vo.WeChatSessionResp;
 import cn.monkeyframework.account.handler.WechatRequestHandler;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
@@ -34,7 +34,7 @@ public class SimpleWechatRequestHandler implements WechatRequestHandler {
                 .map((c) -> REQUEST_TEMPLATE + "?" + "appid=" + this.wechatProperties.getAppId() +
                         "&secret=" + this.wechatProperties.getSecret() +
                         "&js_code=" + c +
-                        "&grant_type=" + "authorization_code")
+                        "&grant_type=authorization_code")
                 .flatMap(url -> webClient.get()
                         .uri(url)
                         .header("Content-Type", MediaType.APPLICATION_JSON_VALUE)

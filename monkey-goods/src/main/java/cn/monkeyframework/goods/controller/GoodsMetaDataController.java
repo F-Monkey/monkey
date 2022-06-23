@@ -1,7 +1,7 @@
 package cn.monkeyframework.goods.controller;
 
-import cn.monkeyframework.common.data.vo.Result;
-import cn.monkeyframework.goods.data.vo.GoodsMetaVo;
+import cn.monkeyframework.commons.data.vo.GoodsMetaVo;
+import cn.monkeyframework.commons.data.vo.Result;
 import cn.monkeyframework.goods.service.IGoodsMetaService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
