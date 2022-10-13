@@ -9,6 +9,11 @@ public class GameStateGroup extends SimpleStateGroup {
 
     @Override
     public GameStateContext getStateContext() {
-        return (GameStateContext)super.getStateContext();
+        return (GameStateContext) super.getStateContext();
+    }
+
+    @Override
+    public void flush() {
+        // todo save game StateContext data
     }
 }
