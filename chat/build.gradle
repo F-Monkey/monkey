@@ -1,0 +1,14 @@
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'io.netty:netty-all'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation project(":proto")
+    implementation project(":state")
+    implementation project(":commons")
+    implementation project(":server")
+    compileOnly 'org.projectlombok:lombok'
+    implementation 'com.google.protobuf:protobuf-java:3.21.7'
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'io.projectreactor:reactor-core:3.4.23'
+}

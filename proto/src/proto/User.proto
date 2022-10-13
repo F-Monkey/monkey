@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package cn.monkey.proto;
+
+option optimize_for = SPEED;
+option java_outer_classname = "User";
+
+message Login {
+  string username = 1;
+  string password = 2;
+  string uid = 3;
+}
+
+message Register {
+  string username = 1;
+  string password = 2;
+}
+
+message UserInfo {
+  string uid = 1;
+  string username = 2;
+  string head = 3;
+}
+
+message Session {
+  UserInfo user = 1;
+  string token = 2;
+  string hallServer = 3;
+  string roomServer = 4;
+}

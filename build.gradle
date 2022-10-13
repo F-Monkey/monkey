@@ -1,0 +1,45 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'com.google.protobuf' version '0.8.18'
+    id 'org.springframework.boot' version '2.7.4'
+}
+
+
+static def isUtils(project) {
+    return ['commons', 'server', 'state'].contains(project.name)
+}
+
+allprojects {
+    group 'cn.monkeyframework'
+    version '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+    test {
+        useJUnitPlatform()
+    }
+
+}
+
+subprojects {
+    project ->
+        apply plugin: 'java'
+        apply plugin: 'idea'
+
+        if (isUtils(project)) {
+            return
+        }
+        apply plugin: 'org.springframework.boot'
+        apply plugin: 'io.spring.dependency-management'
+
+
+        dependencyManagement {
+            imports {
+                mavenBom SpringBootPlugin.BOM_COORDINATES
+            }
+        }
+}

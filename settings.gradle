@@ -1,0 +1,10 @@
+rootProject.name = 'monkey'
+include 'state'
+include 'commons'
+include 'proto'
+include 'server'
+include 'gateway'
+include 'hall'
+include 'game'
+include 'chat'
+

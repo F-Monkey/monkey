@@ -1,0 +1,12 @@
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.7.4'
+    implementation project(":commons")
+    implementation project(":proto")
+    implementation 'com.google.protobuf:protobuf-java:3.21.7'
+    implementation 'com.google.guava:guava:31.1-jre'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive:2.7.4'
+}

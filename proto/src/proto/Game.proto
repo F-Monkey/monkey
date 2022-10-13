@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package cn.monkey.proto;
+
+option optimize_for = SPEED;
+option java_outer_classname = "Game";
+
+message ChooseRoomServer {
+
+}
+
+message ChooseRoomServerResult {
+  int32 waitCount = 1;
+  string roomServerUrl = 2;
+}
+
+message Create {
+  string id = 1;
+}
+
+
+message Enter {
+  string password = 1;
+}
+
+message EnterScene {
+  string name = 1;
+}
+
+message Player {
+  string id = 1;
+  string name = 2;
+  Role role = 3;
+  string scene = 4;
+}
+
+enum MediaType {
+  TEXT = 0;
+  VIDEO = 1;
+  AUDIO = 2;
+  IMG = 3;
+}
+
+message Content {
+  bytes content = 1;
+  MediaType mediaType = 2;
+  string name = 3; // if not text content
+}
+
+message ChatMsg {
+  repeated string target = 1;
+  repeated Content contents = 2;
+}
+
+message ChatMsgResult {
+  string from = 1;
+  repeated Content contents = 2;
+}
+
+message Role {
+  string name = 1;
+  string briefIntroduction = 2;
+  string desc = 3;
+  string img = 4;
+}
+
+message DMInfo {
+  string uid = 1;
+  string username = 2;
+  int32 score = 3;
+}
+
+message Item {
+  string name = 1;
+  string desc = 2;
+  string img = 3;
+}
+
+message Scene {
+  string name = 1;
+  string desc = 2;
+  string img = 3;
+  repeated Item items = 4;
+}
+
+message ApplySwitchRole {
+  string target = 1;
+}
+
+message AgreeSwitchRole{
+  string target = 1;
+}
+
+message SearchItemResult {
+  Item item = 1;
+}
+
+message GameData {
+  string master = 1;
+  Player dm = 2;
+  repeated DMInfo dmInfos = 3;
+  repeated Player players = 4;
+  repeated Role roles = 5;
+  repeated string scenes = 7;
+}
