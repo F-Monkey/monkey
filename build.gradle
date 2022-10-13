@@ -9,7 +9,7 @@ plugins {
 
 
 static def isUtils(project) {
-    return ['commons', 'server', 'state'].contains(project.name)
+    return ['proto', 'server', 'state'].contains(project.name)
 }
 
 allprojects {
