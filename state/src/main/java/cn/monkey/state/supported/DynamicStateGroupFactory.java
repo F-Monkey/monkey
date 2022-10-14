@@ -43,7 +43,7 @@ public class DynamicStateGroupFactory extends TupleStateGroupFactory<String> {
             throw new IllegalArgumentException("stateGroupConfig: " + id + " stateConfigList is empty");
         }
 
-        StateGroup stateGroup = new SimpleStateGroup(id, StateContext.EMPTY, stateGroupConfig.isCanAutoUpdate());
+        StateGroup stateGroup = new SimpleStateGroup(id, StateContext.EMPTY, this.timer, stateGroupConfig.isCanAutoUpdate());
         for (StateConfig sc : stateConfigList) {
             DynamicState dynamicState = this.stateFactory.create(stateGroup, sc.getCode(), sc);
             stateGroup.addState(dynamicState);

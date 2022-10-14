@@ -26,7 +26,6 @@ public class ServerState extends OncePerInitState {
 
     }
 
-
     @Override
     @SuppressWarnings("unchecked")
     public void fireEvent(Object event) throws Exception {

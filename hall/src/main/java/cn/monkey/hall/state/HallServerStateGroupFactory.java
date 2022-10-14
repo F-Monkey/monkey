@@ -19,7 +19,7 @@ public class HallServerStateGroupFactory extends SimpleStateGroupFactory {
     @Override
     public StateGroup create(String id, Object... args) {
         HallServerContext hallServerContext = new HallServerContext(this.roomServerRepository);
-        SimpleStateGroup stateGroup = new SimpleStateGroup(id, hallServerContext, true);
+        SimpleStateGroup stateGroup = new SimpleStateGroup(id, hallServerContext, this.timer, true);
         ServerState serverState = new ServerState(super.timer, stateGroup);
         stateGroup.addState(serverState);
         stateGroup.setStartState(ServerState.CODE);

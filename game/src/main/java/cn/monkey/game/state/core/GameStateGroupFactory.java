@@ -26,7 +26,7 @@ public class GameStateGroupFactory extends TupleStateGroupFactory<String> {
     public StateGroup create(String id, String configId) {
         GameConfig gameConfig = this.repository.findById(configId);
         GameStateContext gameStateContext = new GameStateContext(gameConfig, serverBroadCastHandler);
-        GameStateGroup gameStateGroup = new GameStateGroup(id, gameStateContext, false);
+        GameStateGroup gameStateGroup = new GameStateGroup(id, gameStateContext, this.timer, false);
         gameStateGroup.addState(new StartState(super.timer, gameStateGroup));
         gameStateGroup.addState(new WaitingState(super.timer, gameStateGroup));
         gameStateGroup.setStartState(WaitingState.CODE);

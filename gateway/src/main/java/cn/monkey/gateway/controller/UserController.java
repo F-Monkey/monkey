@@ -22,7 +22,7 @@ public class UserController {
         return this.userService.login(requestEntity);
     }
 
-    @RequestMapping("/regist")
+    @RequestMapping("/register")
     @PostMapping
     Mono<Command.PackageGroup> register(Mono<Command.Package> request) {
         return this.userService.register(request);

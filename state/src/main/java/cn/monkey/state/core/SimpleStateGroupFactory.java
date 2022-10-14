@@ -15,7 +15,7 @@ public class SimpleStateGroupFactory implements StateGroupFactory {
 
     @Override
     public StateGroup create(String id, Object... args) {
-        StateGroup stateGroup = new SimpleStateGroup(id, StateContext.EMPTY, this.canAutoUpdate);
+        StateGroup stateGroup = new SimpleStateGroup(id, StateContext.EMPTY, this.timer, this.canAutoUpdate);
         State state = new EmptyState(this.timer, stateGroup);
         stateGroup.addState(state);
         stateGroup.setStartState(EmptyState.CODE);

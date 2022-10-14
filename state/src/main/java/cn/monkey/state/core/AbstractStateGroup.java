@@ -1,5 +1,6 @@
 package cn.monkey.state.core;
 
+import cn.monkey.commons.utils.Timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,14 +22,18 @@ public abstract class AbstractStateGroup implements StateGroup {
 
     protected final boolean canAutoUpdate;
 
+    protected final Timer timer;
+
     protected State currentState;
 
     public AbstractStateGroup(String id,
                               StateContext stateContext,
+                              Timer timer,
                               boolean canAutoUpdate) {
         this.id = id;
         this.stateContext = stateContext;
         this.canAutoUpdate = canAutoUpdate;
+        this.timer = timer;
         this.stateMap = this.createStateMap();
         this.eventQueue = this.createEventQueue();
     }
@@ -120,7 +125,6 @@ public abstract class AbstractStateGroup implements StateGroup {
 
     @Override
     public void close() {
-
     }
 
     @Override
