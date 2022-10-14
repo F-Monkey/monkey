@@ -34,6 +34,9 @@ public class SimpleNettySessionManager implements SessionManager<ChannelHandlerC
             return v;
         });
         this.sessionMap = sessionMap;
+        if (session instanceof HeartBeatNettySession) {
+            ((HeartBeatNettySession) session).refreshLastOperate();
+        }
         return session;
     }
 
@@ -45,6 +48,7 @@ public class SimpleNettySessionManager implements SessionManager<ChannelHandlerC
             Session value = next.getValue();
             if (!value.isActive()) {
                 iterator.remove();
+                // TODO
             }
         }
     }

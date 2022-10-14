@@ -45,7 +45,7 @@ public class NettyWebSocketServer implements Server {
     }
 
     @Override
-    public void start() throws InterruptedException {
+    public void start() {
         this.bootstrap.group(this.bossGroup, this.workerGroup)
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .childOption(ChannelOption.SO_BACKLOG, 1024)
@@ -67,6 +67,8 @@ public class NettyWebSocketServer implements Server {
             ChannelFuture channelFuture = this.bootstrap.bind(this.port).sync();
             log.info("server start at port: {}", this.port);
             channelFuture.channel().closeFuture().sync();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         } finally {
             this.bossGroup.shutdownGracefully();
             this.workerGroup.shutdownGracefully();

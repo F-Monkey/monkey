@@ -36,7 +36,6 @@ public class ProtoBufWebSocketChannelHandler extends SimpleChannelInboundHandler
         this.dispatcher = dispatcher;
     }
 
-
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, BinaryWebSocketFrame msg) throws Exception {
         ByteBuf byteBuf = Unpooled.copiedBuffer(msg.content());
