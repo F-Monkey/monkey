@@ -14,7 +14,6 @@ import java.io.IOException;
 
 public class SimpleNettySession implements Session {
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
-
     protected final ChannelHandlerContext ctx;
 
     public SimpleNettySession(ChannelHandlerContext ctx) {

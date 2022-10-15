@@ -15,7 +15,6 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Map;
 
-
 public abstract class AbstractBeanContext<T> implements BeanContext<T>, ApplicationContextAware, InitializingBean {
 
     protected ApplicationContext applicationContext;

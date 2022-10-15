@@ -7,6 +7,7 @@ import cn.monkey.server.SessionManager;
 import cn.monkey.server.SessionUtil;
 import io.netty.channel.ChannelHandlerContext;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -47,8 +48,14 @@ public class SimpleNettySessionManager implements SessionManager<ChannelHandlerC
             Map.Entry<String, Session> next = iterator.next();
             Session value = next.getValue();
             if (!value.isActive()) {
+                if (value instanceof HeartBeatNettySession) {
+                    try {
+                        value.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
                 iterator.remove();
-                // TODO
             }
         }
     }

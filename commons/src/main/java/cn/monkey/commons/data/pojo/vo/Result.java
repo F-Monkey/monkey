@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 @Getter
 public class Result<T> implements Serializable {
-
     private Result() {
     }
 

@@ -15,7 +15,6 @@ public abstract class CommandUtil {
                 .build();
     }
 
-
     public static Command.PackageGroup login(cn.monkey.gateway.data.User user, UserSession userSession) {
         User.Session.Builder builder = User.Session.newBuilder()
                 .setUser(copy(user));

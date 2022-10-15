@@ -1,12 +1,11 @@
 plugins {
-    id 'com.google.protobuf'
+    id 'org.springframework.boot' version '2.7.4'
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
     implementation 'com.google.protobuf:protobuf-java:3.21.7'
-    protobuf files("src/proto")
 }
 
 sourceSets {
@@ -29,6 +28,8 @@ sourceSets {
 }
 
 protobuf {
+    generatedFilesBaseDir = "${projectDir}/src/"
+
     protoc {
         artifact = 'com.google.protobuf:protoc:3.12.0'
     }
@@ -44,5 +45,4 @@ protobuf {
         // (Java only) returns tasks for a sourceSet
         ofSourceSet('main')
     }
-    generatedFilesBaseDir = "src/"
 }
